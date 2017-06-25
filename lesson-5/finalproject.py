@@ -5,52 +5,52 @@ app = Flask(__name__)
 
 @app.route('/')
 @app.route('/restaurants/')
-def allRestaurants():
+def showRestaurants():
   """Show all restaurants"""
-  return "1 - All restaurants here..."
+  return "This page will show all of my restaurants"
 
 
 @app.route('/restaurant/new/')
-def createRestaurant():
+def newRestaurant():
   """Create a new restaurant"""
-  return "2 - Create a new restaurant here..."
+  return "This page will be for making a new restaurant"
 
 
 @app.route('/restaurant/<int:restaurant_id>/edit/')
 def editRestaurant(restaurant_id):
   """Edit an existing restaurant"""
-  return "3 - Edit an existing restaurant..."
+  return "This page will be editing restaurant %s" % restaurant_id
 
 
 @app.route('/restaurant/<int:restaurant_id>/delete/')
 def deleteRestaurant(restaurant_id):
   """Delete an existing restaurant"""
-  return "4 - Delete an existing restaurant..."
+  return "This page will be for deleting restaurant %s" % restaurant_id
 
 
 @app.route('/restaurant/<int:restaurant_id>/menu/')
 @app.route('/restaurant/<int:restaurant_id>/')
-def showRestaurantMenu(restaurant_id):
+def showMenu(restaurant_id):
   """Show the menu for a restaurant"""
-  return "5 - Show the menu for a restaurant..."
+  return "This page is the menu for restaurant %s" % restaurant_id
 
 
 @app.route('/restaurant/<int:restaurant_id>/menu/new/')
-def createRestaurantMenuItem(restaurant_id):
+def newMenuItem(restaurant_id):
   """Create a restaurant menu item"""
-  return "6 - Create a restaurant menu item..."
+  return "This page is for making a new menu item for restaurant %s" % restaurant_id
 
 
 @app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/edit/')
-def editRestaurantMenuItem(restaurant_id, menu_id):
+def editMenuItem(restaurant_id, menu_id):
   """Edit a restaurant menu item"""
-  return "7 - Edit a restaurant menu item..."
+  return "This page is for editing menu item %s" % menu_id
 
 
 @app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/delete/')
-def deleteRestaurantMenuItem(restaurant_id, menu_id):
+def deleteMenuItem(restaurant_id, menu_id):
   """Delete a restaurant menu item"""
-  return "8 - Delete a restaurant menu item..."
+  return "This page is for deleting menu item %s" % menu_id
 
 
 if __name__ == '__main__':
