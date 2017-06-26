@@ -1,13 +1,37 @@
 <html>
+  <head>
+    <meta name"viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  </head>
 <body>
-  <h1>Available restaurants:</h1>
-
-  {% for restaurant in restaurants %}
-    <div>
-      <p>{{restaurant.name}}</p>
-      <p><a href='{{url_for('editRestaurant', restaurant_id = restaurant.id) }}'>Edit restaurant</a></p>
-      <p><a href='{{url_for('deleteRestaurant', restaurant_id = restaurant.id) }}'>Delete restaurant</a></p>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Available restaurants</h1>
+      </div>
     </div>
-  {% endfor %}
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+          {% for message in messages %}
+            <li><strong>{{message}}</strong></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <a href = '{{url_for('newRestaurant')}}' class='btn btn-primary'>Create New Restaurant</a>
+
+    {% for restaurant in restaurants %}
+      <div class="row">
+        <div class="col-md-12">
+          <h3>{{restaurant.name}}</h3> 
+          <a href='{{url_for('editRestaurant',   restaurant_id = restaurant.id)}}' class='btn btn-default'>Edit restaurant</a>
+          <a href='{{url_for('deleteRestaurant', restaurant_id = restaurant.id)}}' class='btn btn-danger'>Delete restaurant</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
 </body>
 </html>

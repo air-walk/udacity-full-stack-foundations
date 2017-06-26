@@ -1,45 +1,68 @@
 <html>
+  <head>
+    <meta name"viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  </head>
 <body>
-  <h1>Edit menu item:</h1>
-  <form action="{{url_for('editMenuItem', restaurant_id = restaurant_id, menu_id = item.id)}}" method = 'POST'>
-    <p>Name:</p>
-    <input type='text' size='30' name='name' placeholder = '{{item.name}}'>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Editing menu item</h1>
+      </div>
+    </div>
 
-    <p>Description:</p>
-    <input type='text' size='30' name='description' placeholder = '{{item.description}}'>
+    <form action="{{url_for('editMenuItem', restaurant_id = restaurant_id, menu_id = item.id)}}" method = 'POST'>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input class="form-control" type='text' size='30' name='name' placeholder = '{{item.name}}'>
+      </div>      
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input class="form-control" type='text' size='30' name='description' placeholder = '{{item.description}}'>
+      </div>
+      <div class="form-group">
+        <label for="price">Price</label>        
+        <input class="form-control" type='text' size='30' name='price' placeholder = '{{item.price}}'>
+      </div>
+      <div class="form-group">
+        <label for="course">Course</label>
+        <br/>
 
-    <p>Price:</p>
-    <input type='text' size='30' name='price' placeholder = '{{item.price}}'>
+        <label class="radio-inline">
+          {% if item.course == 'Appetizer' %}
+            <input type ='radio' name='course' value='Appetizer' checked>Appetizer
+          {% else %}
+            <input type ='radio' name='course' value='Appetizer'>Appetizer
+          {% endif %}
+        </label>
 
-    <p>Course:</p>
-    {% if item.course == 'Appetizer' %}
-        <input type ='radio' name='course' value='Appetizer' checked>Appetizer
-    {% else %}
-        <input type ='radio' name='course' value='Appetizer'>Appetizer
-    {% endif %}
+        <label class="radio-inline">
+          {% if item.course == 'Entree' %}
+            <input type ='radio' name='course' value='Entree' checked>Entree
+          {% else %}
+            <input type ='radio' name='course' value='Entree'>Entree
+          {% endif %}
+        </label>
 
-    {% if item.course == 'Entree' %}
-        <input type ='radio' name='course' value='Entree' checked>Entree
-    {% else %}
-        <input type ='radio' name='course' value='Entree'>Entree
-    {% endif %}
-    
-    {% if item.course == 'Dessert' %}
-        <input type ='radio' name='course' value='Dessert' checked>Dessert
-    {% else %}
-        <input type ='radio' name='course' value='Dessert'>Dessert
-    {% endif %}
+        <label class="radio-inline">        
+          {% if item.course == 'Dessert' %}
+            <input type ='radio' name='course' value='Dessert' checked>Dessert
+          {% else %}
+            <input type ='radio' name='course' value='Dessert'>Dessert
+          {% endif %}
+        </label>
 
-    {% if item.course == 'Beverage' %}
-        <input type ='radio' name='course' value='Beverage' checked>Beverage
-    {% else %}
-        <input type ='radio' name='course' value='Beverage'>Beverage
-    {% endif %}
-
-    <br/><br/>
-    <input type='Submit' value='Edit'>
-
-    <a href = '{{url_for('showMenu', restaurant_id = restaurant_id)}}'>Cancel</a>
-  </form>
+        <label class="radio-inline">
+          {% if item.course == 'Beverage' %}
+            <input type ='radio' name='course' value='Beverage' checked>Beverage
+          {% else %}
+            <input type ='radio' name='course' value='Beverage'>Beverage
+          {% endif %}
+        </label>
+      </div>
+      <button type="submit" class="btn btn-primary">Edit</button>
+      <a href = '{{url_for('showMenu', restaurant_id = restaurant_id)}}' class="btn btn-default">Cancel</a>
+    </form>
+  </div>
 </body>
 </html>
