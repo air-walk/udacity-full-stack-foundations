@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Restaurant, MenuItem
@@ -17,6 +17,13 @@ def showRestaurants():
   """Show all restaurants"""
   restaurants = session.query(Restaurant).all()
   return render_template('restaurants.html', restaurants = restaurants)
+
+
+@app.route('/restaurants/JSON')
+def showRestaurantsJSON():
+  """Show all restaurants in JSON"""
+  restaurants = session.query(Restaurant).all()
+  return jsonify(Restaurant = [restaurant.serialize for restaurant in restaurants])
 
 
 @app.route('/restaurant/new/', methods=['GET', 'POST'])
@@ -68,6 +75,15 @@ def showMenu(restaurant_id):
   return render_template('menu.html', restaurant = restaurantToShow, items = items)
 
 
+@app.route('/restaurant/<int:restaurant_id>/menu/JSON')
+def showMenuJSON(restaurant_id):
+  """Show the menu for a restaurant in JSON"""
+  restaurantToShow = session.query(Restaurant).filter_by(id = restaurant_id).one()
+  items            = session.query(MenuItem).filter_by(restaurant_id = restaurant_id)
+
+  return jsonify(MenuItems = [i.serialize for i in items])
+
+
 @app.route('/restaurant/<int:restaurant_id>/menu/new/', methods=['GET', 'POST'])
 def newMenuItem(restaurant_id):
   """Create a restaurant menu item"""
@@ -113,6 +129,13 @@ def deleteMenuItem(restaurant_id, menu_id):
     return redirect(url_for('showMenu', restaurant_id = restaurant_id))
   else:
     return render_template('deleteMenuItem.html', item = itemToDelete)
+
+
+@app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/JSON/')
+def showMenuItemJSON(restaurant_id, menu_id):
+  """Show a restaurant menu item in JSON"""
+  menuItem = session.query(MenuItem).filter_by(id = menu_id).one()
+  return jsonify(MenuItem = menuItem.serialize)
 
 
 if __name__ == '__main__':
