@@ -1,7 +1,7 @@
 <html>
 <body>
-  <h1>Edit restaurant with id {{restaurant_id}}:</h1>
-  <form action="{{url_for('editRestaurant', restaurant_id = restaurant_id)}}" method = 'POST'>
+  <h1>Edit restaurant: {{restaurant.name}}:</h1>
+  <form action="{{url_for('editRestaurant', restaurant_id = restaurant.id)}}" method = 'POST'>
     <p>Name:</p>
     <input type='text' size='30' name='name'>
     <input type='Submit' value='Edit'>
